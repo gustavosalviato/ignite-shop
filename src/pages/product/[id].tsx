@@ -1,12 +1,16 @@
-import { useRouter } from 'next/router'
+import { styled } from "../../styles"
+
+const Button = styled('button', {
+    backgroundColor: "$tomato",
+    padding: '16px',
+    border: '0',
+})
 
 export const Product = () => {
-    const { query } = useRouter()
-    console.log(query)
     return (
-        <div>
+        <Button>
             Product
-        </div>
+        </Button>
     )
 }
 
