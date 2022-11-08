@@ -6,6 +6,10 @@ export const globalStyles = globalCss({
         padding: 0,
     },
 
+    'html': {
+        fontSize: '62.5%;'
+    },
+
     body: {
         backgroundColor: '$gray900',
         color: '$gray100',

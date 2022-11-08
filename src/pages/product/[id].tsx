@@ -1,10 +1,7 @@
-import { Button } from "./styles"
 
 export const Product = () => {
     return (
-        <Button>
-            Product
-        </Button>
+        <div></div>
     )
 }
 
