@@ -1,10 +1,4 @@
-import { styled } from "../../styles"
-
-const Button = styled('button', {
-    backgroundColor: "$tomato",
-    padding: '16px',
-    border: '0',
-})
+import { Button } from "./styles"
 
 export const Product = () => {
     return (
