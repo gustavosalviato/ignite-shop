@@ -33,6 +33,7 @@ export const SuccessContainer = styled('div', {
         fontWeight: '700',
         color: '$green500',
         transition: '0.4s',
+        textDecoration: 'none',
 
         '&:hover': {
             color: '$green300',
