@@ -58,10 +58,15 @@ export const ProductContainer = styled('main', {
         transition: '0.4s',
         border: '0',
 
+        '&:disabled': {
+            cursor: 'not-allowed',
+            opacity: '0.6',
+        },
 
-        '&:hover': {
+
+        '&:not(:disabled):hover': {
             backgroundColor: '$green300',
         }
 
     }
-})
+})                          

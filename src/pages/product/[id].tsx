@@ -3,6 +3,8 @@ import Stripe from "stripe"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductsContainer } from "../../styles/pages/product"
 import Image from 'next/image'
+import axios from "axios"
+import { useState } from "react"
 
 interface ProductProps {
     product: {
@@ -10,11 +12,32 @@ interface ProductProps {
         name: string,
         imageUrl: string,
         price: string,
-        description: string
+        description: string,
+        defaultPriceId: string,
     }
 }
 
 export const Product = ({ product }: ProductProps) => {
+    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+
+    const handleBuy = async () => {
+        try {
+
+            setIsCreatingCheckoutSession(true)
+            const response = await axios.post('/api/checkout', {
+                priceId: product.defaultPriceId
+            })
+
+            const { checkoutUrl } = response.data
+
+            window.location.href = checkoutUrl
+
+        } catch (err) {
+            setIsCreatingCheckoutSession(true)
+            console.log('Falha ao redirecionar ao checkout')
+        }
+    }
     return (
         <ProductsContainer>
             <ImageContainer>
@@ -31,7 +54,12 @@ export const Product = ({ product }: ProductProps) => {
 
                 <p>{product.description}</p>
 
-                <button>Comprar Agora</button>
+                <button
+                    onClick={handleBuy}
+                    disabled={isCreatingCheckoutSession}
+                >
+                    Comprar Agora
+                </button>
             </ProductContainer>
         </ProductsContainer>
     )
@@ -72,7 +100,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
                 price: new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
-                }).format(price.unit_amount as number / 100)
+                }).format(price.unit_amount as number / 100),
+                defaultPriceId: price.id
             },
             revalidate: 60 * 60 * 1
         }
