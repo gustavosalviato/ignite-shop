@@ -54,8 +54,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
     expand: ['data.default_price']
   })
 
-  console.log(response.data)
-
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
 

@@ -22,6 +22,7 @@ export const Product = ({ product }: ProductProps) => {
 
 
     const handleBuy = async () => {
+        console.log(product.defaultPriceId)
         try {
 
             setIsCreatingCheckoutSession(true)
