@@ -6,16 +6,16 @@ import { useKeenSlider } from 'keen-slider/react'
 import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { stripe } from "../lib/stripe";
-import { Stripe } from "stripe";
 
 import 'keen-slider/keen-slider.min.css'
+import { Stripe } from "stripe";
 
 interface HomeProps {
   products: {
     id: number,
     name: string,
     imageUrl: string,
-    price: number,
+    price: string,
   }[]
 
 }
@@ -34,7 +34,7 @@ export default function Home({ products }: HomeProps) {
         <Product
           href={`product/${product.id}`}
           className="keen-slider__slide"
-          key={product.id }
+          key={product.id}
         >
           <Image src={product.imageUrl} width={520} height={400} alt={""} />
 
@@ -59,8 +59,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const products = response.data.map((product) => {
     const price = product.default_price as Stripe.Price
 
-
-
     return {
       id: product.id,
       name: product.name,
@@ -68,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
-      }).format(price.unit_amount / 100),
+      }).format(price.unit_amount as number / 100),
     }
 
   })
