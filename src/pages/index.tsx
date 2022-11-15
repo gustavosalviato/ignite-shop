@@ -3,7 +3,7 @@ import Image from 'next/image'
 import camiseta1 from '../assets/camiseta1.png'
 import camiseta2 from '../assets/camiseta2.png'
 import { useKeenSlider } from 'keen-slider/react'
-
+import Link from "next/link";
 import { GetServerSideProps } from "next";
 import { stripe } from "../lib/stripe";
 import { Stripe } from "stripe";
@@ -31,7 +31,11 @@ export default function Home({ products }: HomeProps) {
   return (
     <HomeContainer ref={sliderRef} className="keen_slider">
       {products.map((product) => (
-        <Product className="keen-slider__slide">
+        <Product
+          href={`product/${product.id}`}
+          className="keen-slider__slide"
+          key={product.id }
+        >
           <Image src={product.imageUrl} width={520} height={400} alt={""} />
 
           <footer>

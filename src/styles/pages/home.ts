@@ -1,4 +1,5 @@
 import { styled } from "..";
+import Link from "next/link";
 
 export const HomeContainer = styled('main', {
     display: 'flex',
@@ -10,9 +11,9 @@ export const HomeContainer = styled('main', {
 })
 
 
-export const Product = styled('a', {
-    background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-    borderRadius: '0.8rem',
+export const Product = styled(Link, {
+    
+    borderRadius: '0.8rem',background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
 
     position: 'relative',
 
@@ -22,6 +23,8 @@ export const Product = styled('a', {
     cursor: 'pointer',
     overflow: 'hidden',
     userSelect: 'none',
+
+    color: '#FFF',
 
     img: {
         objectFit: 'cover',
