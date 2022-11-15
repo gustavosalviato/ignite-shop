@@ -26,6 +26,6 @@ export const {
             lg: '2.0rem',
             xl: '2.4rem',
             '2xl': '3.2rem',
-          }
+        }
     }
 })

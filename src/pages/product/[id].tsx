@@ -5,6 +5,7 @@ import { ImageContainer, ProductContainer, ProductsContainer } from "../../style
 import Image from 'next/image'
 import axios from "axios"
 import { useState } from "react"
+import Head from "next/head"
 
 interface ProductProps {
     product: {
@@ -40,29 +41,34 @@ export const Product = ({ product }: ProductProps) => {
         }
     }
     return (
-        <ProductsContainer>
-            <ImageContainer>
-                <Image
-                    src={product.imageUrl}
-                    width={520}
-                    height={480}
-                    alt="" />
-            </ImageContainer>
+        <>
+            <Head>
+                <title>{`Produto ${product.name} | Gustavo Shop`}</title>
+            </Head>
+            <ProductsContainer>
+                <ImageContainer>
+                    <Image
+                        src={product.imageUrl}
+                        width={520}
+                        height={480}
+                        alt="" />
+                </ImageContainer>
 
-            <ProductContainer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
+                <ProductContainer>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
 
-                <p>{product.description}</p>
+                    <p>{product.description}</p>
 
-                <button
-                    onClick={handleBuy}
-                    disabled={isCreatingCheckoutSession}
-                >
-                    Comprar Agora
-                </button>
-            </ProductContainer>
-        </ProductsContainer>
+                    <button
+                        onClick={handleBuy}
+                        disabled={isCreatingCheckoutSession}
+                    >
+                        Comprar Agora
+                    </button>
+                </ProductContainer>
+            </ProductsContainer>
+        </>
     )
 }
 
