@@ -6,16 +6,10 @@ import Image from 'next/image'
 import axios from "axios"
 import { useState } from "react"
 import Head from "next/head"
+import { IProduct } from "../../contexts/cartContext"
 
 interface ProductProps {
-    product: {
-        id: number,
-        name: string,
-        imageUrl: string,
-        price: string,
-        description: string,
-        defaultPriceId: string,
-    }
+    product: IProduct
 }
 
 export const Product = ({ product }: ProductProps) => {
