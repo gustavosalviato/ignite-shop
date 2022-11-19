@@ -6,7 +6,7 @@ import Image from 'next/image'
 import axios from "axios"
 import { useState } from "react"
 import Head from "next/head"
-import { IProduct } from "../../contexts/cartContext"
+import { IProduct, useCartContext } from "../../contexts/cartContext"
 
 interface ProductProps {
     product: IProduct
@@ -14,6 +14,19 @@ interface ProductProps {
 
 export const Product = ({ product }: ProductProps) => {
     const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+    const { AddProductToCart, cartItems, cartQuantity } = useCartContext()
+
+    console.log(cartItems)
+
+    const handleAddProductToCart = () => {
+        const productToAdd = {
+            ...product,
+            quantity: 1,
+        }
+
+        AddProductToCart(productToAdd)
+    }
 
 
     const handleBuy = async () => {
@@ -55,10 +68,15 @@ export const Product = ({ product }: ProductProps) => {
                     <p>{product.description}</p>
 
                     <button
+                        onClick={handleAddProductToCart}
+                    >
+                        Adicionar ao carrinho
+                    </button>
+                    <button
                         onClick={handleBuy}
                         disabled={isCreatingCheckoutSession}
                     >
-                        Comprar Agora
+                        Comprar Agora {cartQuantity}
                     </button>
                 </ProductContainer>
             </ProductsContainer>
