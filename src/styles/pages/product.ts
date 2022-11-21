@@ -48,8 +48,19 @@ export const ProductContainer = styled('main', {
 
     },
 
-    button: {
+    div: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         marginTop: 'auto',
+        gap: '1.6rem',
+    },
+
+    'button + button': {
+        flex: '1',
+    },
+
+    button: {
         borderRadius: '8px',
         color: '#FFF',
         padding: '1.6rem',

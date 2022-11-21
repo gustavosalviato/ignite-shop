@@ -67,17 +67,22 @@ export const Product = ({ product }: ProductProps) => {
 
                     <p>{product.description}</p>
 
-                    <button
-                        onClick={handleAddProductToCart}
-                    >
-                        Adicionar ao carrinho
-                    </button>
-                    <button
-                        onClick={handleBuy}
-                        disabled={isCreatingCheckoutSession}
-                    >
-                        Comprar Agora {cartQuantity}
-                    </button>
+                    <div>
+                        <button
+                            onClick={handleAddProductToCart}
+                        >
+                            Adicionar ao carrinho
+                        </button>
+
+                        <button
+                            onClick={handleBuy}
+                            disabled={isCreatingCheckoutSession}
+                        >
+                            Finalizar Compra
+                        </button>
+                    </div>
+
+
                 </ProductContainer>
             </ProductsContainer>
         </>
