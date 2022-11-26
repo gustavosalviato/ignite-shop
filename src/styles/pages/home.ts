@@ -50,6 +50,11 @@ export const Product = styled(Link, {
         opacity: 0,
         transition: 'all 0.2s ease-in-out',
 
+        div: {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+
         strong: {
             fontSize: '$lg'
         },

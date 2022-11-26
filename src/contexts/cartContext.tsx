@@ -2,9 +2,9 @@ import produce from "immer";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface CartContextType {
-    cartItems: CartItem[],
+    cartItems: IProduct[],
     cartQuantity: number,
-    AddProductToCart: (product: CartItem) => void,
+    AddProductToCart: (product: IProduct) => void,
 
 }
 
@@ -17,10 +17,6 @@ export interface IProduct {
     defaultPriceId: string,
 }
 
-interface CartItem extends IProduct {
-    quantity: number
-}
-
 export const CartContext = createContext({} as CartContextType)
 
 interface CarContextProviderProps {
@@ -29,11 +25,11 @@ interface CarContextProviderProps {
 
 export const CartContextProvider = ({ children }: CarContextProviderProps) => {
 
-    const [cartItems, setCartItems] = useState<CartItem[]>([])
+    const [cartItems, setCartItems] = useState<IProduct[]>([])
 
     const cartQuantity = cartItems.length
 
-    const AddProductToCart = (product: CartItem) => {
+    const AddProductToCart = (product: IProduct) => {
 
         const productAlreadyExists = cartItems.findIndex((cartItem) => cartItem.id === product.id)
 

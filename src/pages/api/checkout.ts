@@ -19,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         success_url: successUrl,
         cancel_url: cancelUrl,
         mode: 'payment',
+        
         line_items: [
             {
                 price: priceId,

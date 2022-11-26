@@ -4,27 +4,33 @@ import { useKeenSlider } from 'keen-slider/react'
 import { GetServerSideProps } from "next";
 import { stripe } from "../lib/stripe";
 import Head from "next/head";
-
+import { MouseEvent } from 'react'
 import 'keen-slider/keen-slider.min.css'
 import { Stripe } from "stripe";
+import { CartButton } from "../components/CartButton";
+import { IProduct, useCartContext } from "../contexts/cartContext";
 
 interface HomeProps {
-  products: {
-    id: number,
-    name: string,
-    imageUrl: string,
-    price: string,
-  }[]
-
+  products: IProduct[]
 }
 
-export default function Home({ products }: HomeProps) {
+export const Home = ({ products }: HomeProps) => {
+
+  const { AddProductToCart } = useCartContext()
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
       spacing: 48,
     }
   })
+
+  const handleAddProductToCart = (e: MouseEvent<HTMLButtonElement>, product: IProduct) => {
+    e.preventDefault()
+
+    AddProductToCart(product)
+  }
+
 
   return (
     <>
@@ -42,8 +48,16 @@ export default function Home({ products }: HomeProps) {
             <Image src={product.imageUrl} width={520} height={400} alt={""} />
 
             <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
+              <div>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </div>
+
+
+              <CartButton
+                showQuantity={false}
+                onClick={(e: any) => handleAddProductToCart(e, product)}
+              />
             </footer>
           </Product>
         ))}
@@ -52,6 +66,8 @@ export default function Home({ products }: HomeProps) {
     </>
   )
 }
+
+export default Home
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const response = await stripe.products.list({

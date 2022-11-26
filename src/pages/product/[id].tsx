@@ -15,22 +15,12 @@ interface ProductProps {
 export const Product = ({ product }: ProductProps) => {
     const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
 
-    const { AddProductToCart, cartItems, cartQuantity } = useCartContext()
+    const { AddProductToCart, cartItems } = useCartContext()
 
     console.log(cartItems)
 
-    const handleAddProductToCart = () => {
-        const productToAdd = {
-            ...product,
-            quantity: 1,
-        }
-
-        AddProductToCart(productToAdd)
-    }
-
 
     const handleBuy = async () => {
-        console.log(product.defaultPriceId)
         try {
 
             setIsCreatingCheckoutSession(true)
@@ -67,20 +57,12 @@ export const Product = ({ product }: ProductProps) => {
 
                     <p>{product.description}</p>
 
-                    <div>
-                        <button
-                            onClick={handleAddProductToCart}
-                        >
-                            Adicionar ao carrinho
-                        </button>
-
-                        <button
-                            onClick={handleBuy}
-                            disabled={isCreatingCheckoutSession}
-                        >
-                            Finalizar Compra
-                        </button>
-                    </div>
+                    <button
+                        onClick={handleBuy}
+                        disabled={isCreatingCheckoutSession}
+                    >
+                        Finalizar Compra
+                    </button>
 
 
                 </ProductContainer>
@@ -111,6 +93,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
     const product = await stripe.products.retrieve(productId as string, {
         expand: ['default_price'],
     })
+
+    console.log(product)
 
     const price = product.default_price as Stripe.Price
 
