@@ -5,7 +5,7 @@ interface CartContextType {
     cartItems: IProduct[],
     cartQuantity: number,
     AddProductToCart: (product: IProduct) => void,
-
+    totalCart: number,
 }
 
 export interface IProduct {
@@ -43,8 +43,12 @@ export const CartContextProvider = ({ children }: CarContextProviderProps) => {
 
     }
 
+    const totalCart = cartItems.reduce((acc, sum) => {
+        return acc += + Number(sum.price)
+    }, 0)
+
     return (
-        <CartContext.Provider value={{ cartItems, cartQuantity, AddProductToCart }}>
+        <CartContext.Provider value={{ cartItems, cartQuantity, AddProductToCart, totalCart }}>
             {children}
         </CartContext.Provider>
     )
