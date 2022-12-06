@@ -75,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   })
 
   const products = response.data.map((product) => {
+
     const price = product.default_price as Stripe.Price
 
     return {
@@ -85,6 +86,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         style: 'currency',
         currency: 'BRL',
       }).format(price.unit_amount as number / 100),
+      numberPrice: (price?.unit_amount / 100),
+      defaultPriceId: price.id,
     }
 
   })
@@ -92,6 +95,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       products
-    }
+    },
   }
 }

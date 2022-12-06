@@ -1,4 +1,5 @@
 import produce from "immer";
+import { DRAFTABLE } from "immer/dist/internal";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface CartContextType {
@@ -6,6 +7,7 @@ interface CartContextType {
     cartQuantity: number,
     AddProductToCart: (product: IProduct) => void,
     totalCart: number,
+    removeProductToCart: (productId: number) => void,
 }
 
 export interface IProduct {
@@ -14,6 +16,7 @@ export interface IProduct {
     imageUrl: string,
     price: string,
     description: string,
+    numberPrice: number,
     defaultPriceId: string,
 }
 
@@ -43,12 +46,26 @@ export const CartContextProvider = ({ children }: CarContextProviderProps) => {
 
     }
 
-    const totalCart = cartItems.reduce((acc, sum) => {
-        return acc += + Number(sum.price)
+
+    const removeProductToCart = (productId: number) => {
+        const productAlreadyExists = cartItems.findIndex((cartItem) => cartItem.id === productId)
+
+        const newCart = produce(cartItems, (draft) => {
+            if (productAlreadyExists >= 0) {
+                draft.splice(productAlreadyExists, 1)
+            }
+        })
+
+        setCartItems(newCart)
+
+    }
+
+    const totalCart = cartItems.reduce((acc, cartItem) => {
+        return acc += cartItem.numberPrice
     }, 0)
 
     return (
-        <CartContext.Provider value={{ cartItems, cartQuantity, AddProductToCart, totalCart }}>
+        <CartContext.Provider value={{ cartItems, cartQuantity, AddProductToCart, removeProductToCart, totalCart }}>
             {children}
         </CartContext.Provider>
     )

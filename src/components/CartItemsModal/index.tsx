@@ -1,19 +1,22 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import Image from 'next/image';
 import { X } from 'phosphor-react';
-import { useCartContext } from '../../contexts/cartContext';
+import { IProduct, useCartContext } from '../../contexts/cartContext';
 import { CartClose, CartFinalization, CartFinalizationDetails, CartProduct, CartProductDetails, CartProductImage, Content, Overlay } from './styles';
 
 
 export const CartItemsModal = () => {
 
-    const { cartItems } = useCartContext()
+    const { cartItems, totalCart, removeProductToCart } = useCartContext()
 
-    const totalCart = cartItems.reduce((acc, item) => {
-        return acc = + Number(item.price)
-    }, 0)
+    const formattedTotalCart = new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(totalCart)
 
-    console.log(totalCart)
+    const handleRemoveProductToCart = (cartItem: IProduct) => {
+        removeProductToCart(cartItem.id)
+    }
 
     return (
         <Dialog.Portal>
@@ -49,7 +52,9 @@ export const CartItemsModal = () => {
                                     <strong>{cartItem.price}</strong>
 
 
-                                    <button>
+                                    <button
+                                        onClick={() => handleRemoveProductToCart(cartItem)}
+                                    >
                                         Remover
                                     </button>
                                 </CartProductDetails>
@@ -68,7 +73,7 @@ export const CartItemsModal = () => {
 
                             <CartFinalizationDetails>
                                 <strong>Valor total</strong>
-                                <strong className='total'>{Number(totalCart)}</strong>
+                                <strong className='total'>{formattedTotalCart}</strong>
                             </CartFinalizationDetails>
 
                             <button>Finalizar Compra</button>
