@@ -57,6 +57,8 @@ export const Home = ({ products }: HomeProps) => {
               <CartButton
                 showQuantity={false}
                 onClick={(e: any) => handleAddProductToCart(e, product)}
+                color="green"
+                size="large"
               />
             </footer>
           </Product>

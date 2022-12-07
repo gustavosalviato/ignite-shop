@@ -17,6 +17,7 @@ export const Header = () => {
                 <Dialog.Trigger asChild>
                     <CartButton
                         showQuantity
+                        color="gray"
                     />
 
                 </Dialog.Trigger>
