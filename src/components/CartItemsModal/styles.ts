@@ -145,8 +145,17 @@ export const CartFinalization = styled('div', {
         borderRadius: 8,
         fontSize: '1.6rem',
         fontWeight: '700',
+        transition: '0.6s',
+
+        '&:not(:disabled):hover': {
+            background: '$green300',
+        },
 
 
+        '&:disabled': {
+            cursor: 'not-allowed',
+            opacity: '0.6',
+        }
     }
 })
 

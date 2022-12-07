@@ -13,30 +13,14 @@ interface ProductProps {
 }
 
 export const Product = ({ product }: ProductProps) => {
-    const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
 
     const { AddProductToCart, cartItems } = useCartContext()
 
     console.log(cartItems)
 
 
-    const handleBuy = async () => {
-        try {
 
-            setIsCreatingCheckoutSession(true)
-            const response = await axios.post('/api/checkout', {
-                priceId: product.defaultPriceId
-            })
-
-            const { checkoutUrl } = response.data
-
-            window.location.href = checkoutUrl
-
-        } catch (err) {
-            setIsCreatingCheckoutSession(true)
-            console.log('Falha ao redirecionar ao checkout')
-        }
-    }
     return (
         <>
             <Head>
@@ -58,8 +42,6 @@ export const Product = ({ product }: ProductProps) => {
                     <p>{product.description}</p>
 
                     <button
-                        onClick={handleBuy}
-                        disabled={isCreatingCheckoutSession}
                     >
                         Finalizar Compra
                     </button>
@@ -94,8 +76,6 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
         expand: ['default_price'],
     })
 
-    console.log(product)
-
     const price = product.default_price as Stripe.Price
 
     return {
@@ -109,7 +89,9 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
                     style: 'currency',
                     currency: 'BRL',
                 }).format(price.unit_amount as number / 100),
-                defaultPriceId: price.id
+                numberPrice: (price?.unit_amount / 100),
+                defaultPriceId: price.id,
+
             },
             revalidate: 60 * 60 * 1
         }

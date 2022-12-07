@@ -56,7 +56,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
                 permanent: false,
             }
         }
-
     }
 
     const sessionId = query.session_id as string
