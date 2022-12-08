@@ -12,7 +12,7 @@ Esse repositório tem como proposta armazenar os conhecimentos do módulo sobre 
 - [x] Adicionar produto no carrinho
 - [x] Exibir o valor total da compra
 
-![CafeLivraison](https://imgur.com/a/ODy7YVK)
+![IgniteShop](https://i.imgur.com/tHkhi32.png)
 
 ### Pré-requisitos
 
