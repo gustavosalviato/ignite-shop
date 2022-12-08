@@ -16,7 +16,7 @@ interface HomeProps {
 
 export const Home = ({ products }: HomeProps) => {
 
-  const { AddProductToCart } = useCartContext()
+  const { AddProductToCart, checkIfItemAlreadyExistsInCart } = useCartContext()
 
   const [sliderRef] = useKeenSlider({
     slides: {
@@ -59,6 +59,7 @@ export const Home = ({ products }: HomeProps) => {
                 onClick={(e: any) => handleAddProductToCart(e, product)}
                 color="green"
                 size="large"
+                disabled={checkIfItemAlreadyExistsInCart(product.id)}
               />
             </footer>
           </Product>

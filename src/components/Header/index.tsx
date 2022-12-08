@@ -4,8 +4,13 @@ import { HeaderContainer } from "./styles"
 import { CartButton } from "../CartButton"
 import * as Dialog from '@radix-ui/react-dialog';
 import { CartItemsModal } from '../CartItemsModal';
+import { useRouter } from 'next/router';
 
 export const Header = () => {
+
+    const { pathname } = useRouter()
+
+    const showCartButton = pathname !== '/success'
 
     return (
         <HeaderContainer>
@@ -15,10 +20,14 @@ export const Header = () => {
             />
             <Dialog.Root>
                 <Dialog.Trigger asChild>
-                    <CartButton
-                        showQuantity
-                        color="gray"
-                    />
+                    
+                    {showCartButton && (
+                        <CartButton
+                            showQuantity
+                            color="gray"
+                        />
+                    )}
+
 
                 </Dialog.Trigger>
 

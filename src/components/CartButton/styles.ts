@@ -16,6 +16,17 @@ export const ButtonContainer = styled('button', {
     position: 'relative',
 
 
+    '&:not(disabled):hover': {
+        backgroundColor: '$green300',
+    },
+
+
+    '&:disabled': {
+        cursor: 'not-allowed',
+        opacity: '0.6',
+    },
+
+
     svg: {
         color: '$white'
     },

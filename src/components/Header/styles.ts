@@ -7,6 +7,12 @@ export const HeaderContainer = styled('header', {
     margin: '0 auto',
 
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '10rem',
+
+
+    button: {
+        marginLeft: 'auto',
+    }
 })

@@ -42,20 +42,32 @@ export const SuccessContainer = styled('div', {
     }
 })
 
-export const ImageSuccessContainer = styled('div', {
-    width: '100%',
+export const ImageContainer = styled('div', {
     background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-    borderRadius: 8,
-    maxWidth: '13rem',
-    height: '14.5rem',
+    boxShadow: "0px 0px 60px rgba(0, 0, 0, 0.8)",
+    width: '14rem',
+    height: '14rem',
 
     display: 'flex',
     justifyContent: 'center',
+    borderRadius: '50%',
     alignItems: 'center',
+    position: 'relative',
 
     marginTop: '6.4rem',
 
     img: {
         objectFit: 'cover',
     }
-})  
+})
+
+
+export const ImagesContainer = styled('div', {
+    display: 'flex',
+    marginBottom: '4.8rem',
+    alignItems: 'center',
+
+    "div + div": {
+        marginLeft: 'calc(-140px / 2)',
+    }
+})

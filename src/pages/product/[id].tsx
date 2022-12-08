@@ -3,8 +3,6 @@ import Stripe from "stripe"
 import { stripe } from "../../lib/stripe"
 import { ImageContainer, ProductContainer, ProductsContainer } from "../../styles/pages/product"
 import Image from 'next/image'
-import axios from "axios"
-import { useState } from "react"
 import Head from "next/head"
 import { IProduct, useCartContext } from "../../contexts/cartContext"
 
@@ -15,11 +13,9 @@ interface ProductProps {
 export const Product = ({ product }: ProductProps) => {
 
 
-    const { AddProductToCart, cartItems } = useCartContext()
+    const { AddProductToCart, checkIfItemAlreadyExistsInCart } = useCartContext()
 
-    console.log(cartItems)
-
-
+    const itemAlreadyAddedToCart = checkIfItemAlreadyExistsInCart(product.id)
 
     return (
         <>
@@ -42,8 +38,10 @@ export const Product = ({ product }: ProductProps) => {
                     <p>{product.description}</p>
 
                     <button
+                        onClick={() => AddProductToCart(product)}
+                        disabled={itemAlreadyAddedToCart}
                     >
-                        Finalizar Compra
+                        {itemAlreadyAddedToCart ? 'Produto adicionado no carrinho' : 'Adicionar no carrinho'}
                     </button>
 
 
